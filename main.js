@@ -1,47 +1,40 @@
-// Importer le module 'readline' pour lire l'entrée depuis le terminal
 const readline = require("readline");
 
-// Créer une interface de lecture
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-// Fonction pour remplacer les caractères
 function remplacerCaracteres(phrase) {
-  let caracteres = phrase.split("");
+  const reglesRemplacement = {
+    A: "#",
+    l: "!", // X: "Y" X est remplacé par Y
+    E: "€",
+    e: "3",
+    a: "@",
+    u: "^",
+  };
 
-  for (let i = 0; i < caracteres.length; i++) {
-    if (caracteres[i] === "A") {
-      // Règle de remplacement. Changez les valeurs entre les guillemets
-      caracteres[i] = "#";
-    }
-    if (caracteres[i] === "l") {
-      caracteres[i] = "!";
-    }
-    if (caracteres[i] === "E") {
-      caracteres[i] = "€";
-    }
-    if (caracteres[i] === "e") {
-      caracteres[i] = "3";
-    }
-    if (caracteres[i] === "a") {
-      caracteres[i] = "@";
-    }
-    if (caracteres[i] === "u") {
-      caracteres[i] = "^";
-    }
-  }
+  const caracteres = phrase.split("");
 
-  let nouvellePhrase = caracteres.join("");
-  nouvellePhrase = nouvellePhrase.replace(/\s+/g, ""); // Supprimer les espaces
-  return nouvellePhrase;
+  const nouvellePhrase = caracteres
+    .map((caractere) => {
+      return reglesRemplacement[caractere] || caractere;
+    })
+    .join("");
+
+  return nouvellePhrase.replace(/\s+/g, "");
 }
 
-// Demander à l'utilisateur de saisir une phrase
 rl.question("Entrez une phrase : ", (phrase) => {
-  let phraseModifiee = remplacerCaracteres(phrase);
-  console.log("Phrase modifiée :", phraseModifiee);
+  phrase = phrase.trim();
 
-  rl.close(); // Fermer l'interface de lecture
+  if (phrase !== "") {
+    const phraseModifiee = remplacerCaracteres(phrase);
+    console.log("Phrase modifiée :", phraseModifiee);
+  } else {
+    console.log("Vous n'avez pas écrit de phrase.");
+  }
+
+  rl.close();
 });
