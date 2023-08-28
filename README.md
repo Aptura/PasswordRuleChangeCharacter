@@ -1,7 +1,7 @@
 # Rule-based passphrase character changer
 Script NodeJS pour changer les caractères d'une phrase de passe basée sur des règles.
 
-Tout ce que vous avez à faire est de changer les valeurs de chaque "if". Vous pouvez ajouter ou supprimer des règles "if".
+Tout ce que vous avez à faire est de changer les valeurs dans le tableau nommé : ```const reglesRemplacement```
 
 Cela vous permet de modifier les caractères d'une phrase de passe en fonction de règles définies. N'oubliez pas de vous souvenir des règles que vous avez définies, afin de pouvoir vous souvenir facilement de votre mot de passe.
 
